@@ -24,18 +24,32 @@
                 </div>
             </div>
             <div class="product-info">
+                <h1><div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)" > {{ variant.color}} </div></h1>
 
                 <a  :href="link"> <h1>{{product}}</h1></a>
+
                 <p>{{description}}</p>
-                <p v-if="inventory >10 ">In Stock</p>
-                <p v-else-if="inventory <= 10 && inventory > 0">Almost out of Stock</p>
-                <p v-else>Out of Stock</p>
+
+                <p v-if="inventory > 10 && inStock">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0 && inStock">Almost out of Stock</p>
+                <p v-else-if="!inStock">Out of Stock</p>
+                <button @click="toggleInStock">Toggle In Stock</button>
 
                 <!-- 显示产品是否在促销 -->
                 <p v-if="onSale">On Sale!</p>
                 <p v-else>Not on Sale</p>
                  <!-- 切换促销状态的按钮 -->
             <button @click="toggleOnSale">Toggle On Sale</button>
+            
+
+            <ul><li v-for="detail in details">{{detail}}</li></ul>
+
+                
+             <!-- 显示袜子的尺寸 -->
+             <p>Size: {{ size.join(', ') }}</p>
+
+             <div class="cart">Cart({{ cart}})</div>
+             <button class="button" @click="addToCart">Add To Cart</button>
             </div>
         
 
