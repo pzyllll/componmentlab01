@@ -7,7 +7,7 @@ createApp({
         const description = ref('These boots are made for walking and provide comfort and durability for all your adventures.');
         const image = ref('./assets/images/socks_green.jpg')
         const link = ref('https://www.camt.cmu.ac.th/index.php/th/')
-        const inStock = ref(true);
+        const inStock = ref(false);
         const inventory = ref(100);
         const onSale = ref(false); 
         const toggleOnSale = () => {
