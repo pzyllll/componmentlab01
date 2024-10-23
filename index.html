@@ -8,58 +8,49 @@
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src=""></script>
-    </head>
+</head>
 
 <body>
     <div id="app">
-        <!-- <h1>Product goes here</h1> -->
-        <!-- <h1>{{product}}</h1> -->
         <div class="nav-bar"></div>
-            <div class="product-display">
-     	      <div class="product-container">
-                    <div class="product-image">
-                    <img  :src="image" alt=""  :class="{ 'out-of-stock-image': !inStock }">                    
+        <div class="product-display">
+            <div class="product-container flex-row">
+                <div class="product-image">
+                    <img :src="image" alt="" :class="{ 'out-of-stock-image': !inStock }">
                 </div>
+                <div class="product-info">
+                    <a :href="link"><h1>{{ title }}</h1></a>
+                    <p>{{ description }}</p>
+
+                    <p v-if="inventory > 10 && inStock">In Stock</p>
+                    <p v-else-if="inventory <= 10 && inventory > 0 && inStock">Almost out of Stock</p>
+                    <p v-else-if="!inStock">Out of Stock</p>
+                    <button @click="toggleInStock">Toggle In Stock</button>
+
+                    <p v-if="saleMessage">{{ saleMessage }}</p> <!-- 显示促销信息 -->
+                    <p v-else>Not on Sale</p>
+                    <button @click="toggleOnSale">Toggle On Sale</button>
+
+                    <ul>
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
+
+                    <p>Size: {{ size.join(', ') }}</p>
+
+                    <div class="cart">Cart({{ cart }})</div>
+                    <button class="button" :disabled="!inStock" @click="addToCart">Add To Cart</button>
                 </div>
             </div>
-            <div class="product-info">
-                <h1><div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)"
-                     class="color-circle"  :style="{backgroundColor:variant.color}"> {{ variant.color}}
-                     </div></h1>
-
-                <a  :href="link"> <h1>{{product}}</h1></a>
-
-                <p>{{description}}</p>
-
-                <p v-if="inventory > 10 && inStock">In Stock</p>
-                <p v-else-if="inventory <= 10 && inventory > 0 && inStock">Almost out of Stock</p>
-                <p v-else-if="!inStock">Out of Stock</p>
-                <button @click="toggleInStock">Toggle In Stock</button>
-
-                <!-- 显示产品是否在促销 -->
-                <p v-if="onSale">On Sale!</p>
-                <p v-else>Not on Sale</p>
-                 <!-- 切换促销状态的按钮 -->
-            <button @click="toggleOnSale">Toggle On Sale</button>
-
-
-            <ul><li v-for="detail in details">{{detail}}</li></ul>
-
-                
-             <!-- 显示袜子的尺寸 -->
-             <p>Size: {{ size.join(', ') }}</p>
-
-             <div class="cart">Cart({{ cart}})</div>
-             <button class="button"  :disabled='!inStock'  @click="addToCart">Add To Cart</button>
+        </div>
+        <h1 v-if="variants.length">
+            <div v-for="(variant, index) in variants" :key="variant.id" @mouseover="updateVariant(index)"
+                 class="color-circle" :style="{ backgroundColor: variant.color }">
+                {{ variant.color }}
             </div>
-        
-
+        </h1>
     </div>
 
     <script src="./main.js"></script>
-
-   
 </body>
 
 </html>

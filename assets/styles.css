@@ -185,3 +185,18 @@ ul {
   filter: grayscale(100%); /* 将图片变为灰度 */
   opacity: 0.5; /* 可选：降低图片透明度以增加视觉效果 */
 }
+
+.product-container.flex-row {
+  display: flex;
+  align-items: flex-start; /* 使内容顶部对齐 */
+}
+
+.product-image img {
+  max-width: 50%;
+  height: auto;
+  margin-right: 20px; /* 图片与文本之间的间距 */
+}
+
+.product-info {
+  flex: 1; /* 让文本部分占据剩余空间 */
+}
