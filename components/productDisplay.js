@@ -105,6 +105,7 @@ const productDisplay = {
             }
 
          function removeFromCart() {
+            cart.value -= 1
                 emit('remove-from-cart', variants.value[selectedVariant.value].id);
             }
             
