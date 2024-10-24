@@ -31,6 +31,8 @@ const productDisplay = {
                 </div>
                 <button class="button" :disabled='!inStock' @click="addToCart" :class="{disabledButton: !inStock}">Add To
                     Cart</button>
+
+                <button class="button" :disabled="!inStock" @click="removeFromCart" :class="{ disabledButton: !inStock }">Remove From Cart</button>
             </div>
             <review-list v-if="reviews.length" :reviews="reviews"></review-list>
             <review-form @review-submitted="addReview"></review-form>
@@ -101,6 +103,10 @@ const productDisplay = {
         function addReview(review){
             reviews.value.push(review)
             }
+
+         function removeFromCart() {
+                emit('remove-from-cart', variants.value[selectedVariant.value].id);
+            }
             
         return {
             product,
@@ -120,7 +126,8 @@ const productDisplay = {
             addToCart,
             updateImage,
             updateVariant,
-            shipping
+            shipping,
+            removeFromCart,
         }
     }
 }

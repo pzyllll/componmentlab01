@@ -12,11 +12,22 @@ const app = createApp({
                }
                 
   
+        function  removeFromCart(id) {
+                if (this.cart[id]) {
+                    if (this.cart[id] > 1) {
+                        this.cart[id]--;
+                    } else {
+                        delete this.cart[id];
+                    }
+                }
+            }
+
         return {
             cart,
             premium,
             premiumMessage,
-            updateCart
+            updateCart,
+            removeFromCart,
         }
     }
   
