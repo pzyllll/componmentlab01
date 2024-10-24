@@ -1,22 +1,28 @@
-// const product = 'Socks'
-const { createApp, ref, computed } = Vue
+const { createApp, ref,computed,reactive,toRefs } = Vue
 
 const app = createApp({
-   setup(){
+    setup(){
+        const cart = ref([])      
+        const premium = ref(true)   
+        const premiumMessage = computed(() =>{
+            return premium.value ? 'You are a premium member!' : 'You are not a premium member.';
+        });
+        function updateCart(id) {
+            cart.value.push(id)
+               }
+                
   
-         const cart = ref(0);
-        const premium = ref(true)
-    
-         return {
-  
-             cart,
-             premium,
-   
-     }
-  
+        return {
+            cart,
+            premium,
+            premiumMessage,
+            updateCart
+        }
     }
+  
 })
 
 app.component('product-display', productDisplay)
+app.component('review-form', reviewForm)
+app.component('review-list',reviewList)
 app.mount('#app')
-
